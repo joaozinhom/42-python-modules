@@ -1,6 +1,6 @@
 # from module00.ex0.ft_hello_garden import ft_hello_garden
 # def main():
-#     ft_hello_garden 
+#     ft_hello_garden
 
 # from module00.ex1.ft_garden_name import ft_garden_name
 # def main():
@@ -22,11 +22,13 @@
 # def main():
 #     ft_water_reminder()
 
-# from module00.ex6.ft_count_harvest_iterative import ft_count_harvest_iterative
+# from module00.ex6.ft_count_harvest_iterative import (
+#     ft_count_harvest_iterative)
 # def main():
 #     ft_count_harvest_iterative()
 
-# from module00.ex6.ft_count_harvest_recursive import ft_count_harvest_recursive
+# from module00.ex6.ft_count_harvest_recursive import (
+#     ft_count_harvest_recursive)
 # def main():
 #     ft_count_harvest_recursive()
 
@@ -35,5 +37,11 @@
 #     ft_seed_inventory("tomato", 15, "packets")
 #     ft_seed_inventory("carrot", 8, "grams")
 #     ft_seed_inventory("lettuce", 12, "area")
+
+
+def main() -> None:
+    pass
+
+
 if __name__ == "__main__":
     main()

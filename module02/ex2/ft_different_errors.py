@@ -9,7 +9,7 @@ def garden_operations(operation_number: int) -> None:
         file = open("/non/existent/file")
         print(file)
     elif (operation_number == 3):
-        message = "Temperature: " + 25
+        message = "Temperature: " + "25"
         print(message)
     return (None)
 

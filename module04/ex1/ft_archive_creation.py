@@ -3,11 +3,7 @@ import typing
 
 
 def recover_archive(file_name: str) -> str | None:
-    """Open a file, display its content like cat, then close it.
-
-    Returns the content read, or None if the file could not be used.
-    """
-    file: typing.IO | None = None
+    file: typing.IO[str] | None = None
     content: str | None = None
     try:
         file = open(file_name, "r")
@@ -22,7 +18,6 @@ def recover_archive(file_name: str) -> str | None:
 
 
 def transform_archive(content: str) -> str:
-    """Append the 2087-compatible archive character to every line."""
     new_content = ""
     for line in content.splitlines():
         new_content += line + "#\n"
@@ -30,8 +25,7 @@ def transform_archive(content: str) -> str:
 
 
 def save_archive(file_name: str, content: str) -> None:
-    """Create the file (or replace it) and write the content in it."""
-    file: typing.IO | None = None
+    file: typing.IO[str] | None = None
     saved = False
     try:
         file = open(file_name, "w")

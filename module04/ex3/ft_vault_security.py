@@ -1,14 +1,6 @@
 def secure_archive(file_name: str,
                    action: str = "read",
                    content: str = "") -> tuple[bool, str]:
-    """Safely read from or write to a vault using a context manager.
-
-    The 'with' statement closes the file even when an error is raised,
-    so no file descriptor ever leaks out of this function.
-
-    Returns (True, content read or success message) on success,
-    or (False, error message) on failure.
-    """
     if action not in ("read", "write"):
         return (False, f"Unknown action '{action}'")
     try:

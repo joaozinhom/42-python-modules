@@ -1,4 +1,4 @@
-def main():
+def main() -> None:
     print("=== Welcome to My Garden ===")
     plant = "Cactus"
     height = "42 cm"

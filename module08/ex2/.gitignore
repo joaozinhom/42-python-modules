@@ -1,0 +1,7 @@
+# Never commit real secrets: the .env file holds credentials and API keys.
+.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+.mypy_cache/

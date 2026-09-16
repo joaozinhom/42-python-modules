@@ -7,15 +7,8 @@ source code.
 """
 import os
 import sys
-from typing import Optional
 
-CONFIG_KEYS = (
-    "MATRIX_MODE",
-    "DATABASE_URL",
-    "API_KEY",
-    "LOG_LEVEL",
-    "ZION_ENDPOINT",
-)
+REQUIRED_KEYS = ("DATABASE_URL", "API_KEY", "ZION_ENDPOINT")
 
 
 def load_env_file() -> bool:
@@ -31,15 +24,16 @@ def load_env_file() -> bool:
         print("         Install it with: pip install python-dotenv")
         print()
         return False
-    load_dotenv(override=False)
-    return True
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    load_dotenv(dotenv_path=env_path, override=False)
+    return os.path.isfile(env_path)
 
 
-def get(key: str, default: Optional[str] = None) -> Optional[str]:
+def get(key: str, default: str | None = None) -> str | None:
     return os.environ.get(key, default)
 
 
-def describe_database(mode: str, url: Optional[str]) -> str:
+def describe_database(mode: str, url: str | None) -> str:
     if url is None:
         return "MISSING (no DATABASE_URL configured)"
     if mode == "production":
@@ -47,13 +41,13 @@ def describe_database(mode: str, url: Optional[str]) -> str:
     return "Connected to local instance"
 
 
-def describe_api(api_key: Optional[str]) -> str:
+def describe_api(api_key: str | None) -> str:
     if api_key:
         return "Authenticated"
     return "MISSING (no API_KEY configured)"
 
 
-def describe_zion(endpoint: Optional[str]) -> str:
+def describe_zion(endpoint: str | None) -> str:
     return "Online" if endpoint else "Offline (no ZION_ENDPOINT configured)"
 
 
@@ -78,14 +72,14 @@ def main() -> None:
 
     print("Environment security check:")
     print("[OK] No hardcoded secrets detected")
-    if dotenv_ok and os.path.exists(".env"):
+    if dotenv_ok:
         print("[OK] .env file properly configured")
     else:
         print("[WARN] no .env file found, using environment / defaults")
     print("[OK] Production overrides available")
     print()
 
-    missing = [key for key in CONFIG_KEYS if get(key) is None]
+    missing = [key for key in REQUIRED_KEYS if get(key) is None]
     if missing:
         print("WARNING: missing configuration for: " + ", ".join(missing))
         print("Copy .env.example to .env and fill in your values.")

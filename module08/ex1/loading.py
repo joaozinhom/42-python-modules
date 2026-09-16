@@ -7,8 +7,6 @@ installation instructions for both pip and Poetry.
 """
 import importlib
 import importlib.metadata
-from types import ModuleType
-from typing import Optional
 
 REQUIRED: dict[str, str] = {
     "pandas": "Data manipulation ready",
@@ -28,12 +26,13 @@ def version_of(package: str) -> str:
         return "unknown"
 
 
-def load_module(name: str) -> Optional[ModuleType]:
-    """Import a module by name, returning None when it is not installed."""
+def is_installed(name: str) -> bool:
+    """Return True when a module can be imported."""
     try:
-        return importlib.import_module(name)
+        importlib.import_module(name)
+        return True
     except ImportError:
-        return None
+        return False
 
 
 def print_install_help(missing: list[str]) -> None:
@@ -65,7 +64,7 @@ def check_dependencies() -> list[str]:
     print("Checking dependencies:")
     missing: list[str] = []
     for package, message in REQUIRED.items():
-        if load_module(package) is None:
+        if not is_installed(package):
             print(f"[MISSING] {package} - {message}")
             missing.append(package)
         else:

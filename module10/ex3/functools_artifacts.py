@@ -23,16 +23,16 @@ def spell_reducer(spells: list[int], operation: str) -> int:
     Returns 0 for an empty list and raises ValueError for an unknown
     operation.
     """
-    if not spells:
-        return 0
     if operation not in REDUCE_OPS:
         raise ValueError(f"Unknown operation: {operation}")
+    if not spells:
+        return 0
     return functools.reduce(REDUCE_OPS[operation], spells)
 
 
 def partial_enchanter(
     base_enchantment: Callable[[int, str, str], str],
-) -> dict[str, Callable]:
+) -> dict[str, Callable[[str], str]]:
     """Build three specialized enchantments pre-filling power=50 and element.
 
     functools.partial freezes the leading ``power`` and ``element`` arguments,
@@ -68,7 +68,7 @@ def spell_dispatcher() -> Callable[[Any], str]:
         return spell
 
     @cast.register(list)
-    def _cast_multi(spell: list) -> str:
+    def _cast_multi(spell: list[Any]) -> str:
         return f"{len(spell)} spells"
 
     return cast

@@ -1,3 +1,5 @@
+# mypy: allow-subclassing-any, allow-untyped-decorators
+# mypy: no-warn-unused-ignores
 """Exercise 2: nested Pydantic models and complex relationships.
 
 A SpaceMission owns a list of CrewMember models. A model validator enforces
@@ -6,7 +8,9 @@ crew safety and operational requirements before a mission can be approved.
 from datetime import datetime
 from enum import Enum
 
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import (  # type: ignore[import]
+    BaseModel, Field, ValidationError, model_validator,
+)
 
 SEPARATOR = "=" * 41
 

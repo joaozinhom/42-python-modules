@@ -1,3 +1,5 @@
+# mypy: allow-subclassing-any, allow-untyped-decorators
+# mypy: no-warn-unused-ignores
 """Exercise 1: custom validation with @model_validator (Pydantic v2).
 
 An AlienContact model enforces business rules that go beyond simple field
@@ -7,7 +9,9 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import (  # type: ignore[import]
+    BaseModel, Field, ValidationError, model_validator,
+)
 
 SEPARATOR = "=" * 40
 

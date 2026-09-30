@@ -1,3 +1,5 @@
+# mypy: allow-subclassing-any, allow-untyped-decorators
+# mypy: no-warn-unused-ignores
 """Exercise 0: basic Pydantic model creation with BaseModel and Field.
 
 A SpaceStation model validates the vital statistics every station across the
@@ -6,7 +8,9 @@ galaxy reports to the Cosmic Data Observatory.
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import (  # type: ignore[import]
+    BaseModel, Field, ValidationError,
+)
 
 SEPARATOR = "=" * 40
 
